@@ -32,3 +32,5 @@ alert(" fazer valdiação de login")
 alert ('a API nao esta padronizada entao a continuação da url pode ser por _id ou id')
 
 alert ('vw pega a tela toda, se colocar 100% o scrool pode atrapalhar, o % pega a largura do doc e o vw pega a da tela')
+
+sibling selector css

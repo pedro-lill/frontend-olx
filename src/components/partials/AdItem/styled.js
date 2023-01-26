@@ -13,6 +13,7 @@ export const Item = styled.div`
         background-color: #fff;
         transition: all ease .2s;
 
+        
         &:hover{
             border: 1px solid #999;
             background-color: #EEE ;
@@ -29,5 +30,7 @@ export const Item = styled.div`
 
         }
     }
+
+    
 
 `;

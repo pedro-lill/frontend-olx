@@ -37,20 +37,20 @@ const Page = () => {
         setError('');
         let errors = [];
 
-        if(!title.trim()) {
+        if (!title.trim()) {
             errors.push('Sem título');
         }
-        if(!category) {
+        if (!category) {
             errors.push('Sem categoria');
         }
-        if(!price.trim()) {
+        if (!price.trim()) {
             errors.push('Sem preço');
         }
-        if(!desc.trim()) {
+        if (!desc.trim()) {
             errors.push('Sem descrição');
         }
-        if(errors.length === 0) {
-             // send to API
+        if (errors.length === 0) {
+            // send to API
             const fData = new FormData();
             fData.append('title', title);
             fData.append('price', price);
@@ -58,22 +58,22 @@ const Page = () => {
             fData.append('desc', desc);
             fData.append('cat', category);
 
-            if(fileField.current.files.length > 0) {
-                for(let i=0; i<fileField.current.files.length; i++) {
+            if (fileField.current.files.length > 0) {
+                for (let i = 0; i < fileField.current.files.length; i++) {
                     fData.append('img', fileField.current.files[i]);
                 }
             }
 
             const json = await api.addAd(fData);
 
-            if(!json.error) {
-              history.push(`/ad/${json.id}`);
+            if (!json.error) {
+                history.push(`/ad/${json.id}`);
                 return;
-            }else{
+            } else {
                 setError(json.error);
             }
 
-        }else{
+        } else {
             setError(errors.join("\n"));
         }
 
@@ -121,7 +121,7 @@ const Page = () => {
                             >
                                 <option></option>
                                 {categories && categories.map(cat =>
-                                    <option key={cat._id} value={cat._id}>{cat.name}</option>      
+                                    <option key={cat._id} value={cat._id}>{cat.name}</option>
                                 )}
                             </select>
                         </div>
@@ -160,12 +160,12 @@ const Page = () => {
                         </div>
                     </label>
                     <label className='area'>
-                        <div className='area--title'>Imagens (Uma ou mais)</div>
+                        <div className='area--title'>*Imagens</div>
                         <div className='area--input'>
                             <input
-                                type='file' 
+                                type='file'
                                 disabled={disabled}
-                                ref = {fileField}
+                                ref={fileField}
                                 multiple
                             />
                         </div>
@@ -173,7 +173,7 @@ const Page = () => {
                     <label className='area'>
                         <div className='area--title'></div>
                         <div className='area--input'>
-                            <button disabled={disabled}>Adiciona Anúncio</button>
+                            <button disabled={disabled}>Postar Anúncio</button>
                         </div>
                     </label>
                 </form>

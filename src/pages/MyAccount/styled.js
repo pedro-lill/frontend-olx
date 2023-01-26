@@ -56,15 +56,13 @@ export const PageArea = styled.div`
                 font-size: 15px;
                 cursor: pointer;
 
-                &:hover{
+                &:hover, :focus{
                     background-color: #006FCE;
                 }
-
+                
             }
             input:checked{
-                background-color: blue;
-                width: 20px;
-                height: 20px;
+                background-color: blue; 
             }
         }
     }
@@ -110,24 +108,38 @@ export const OthersArea = styled.div`
     }
 
     button{
-                background-color: #0089FF;
-                border: 0;
-                outline: 0;
-                padding: 5px 10px;
-                border-radius: 4px;
-                color: #FFF;
-                font-size: 15px;
-                cursor: pointer;
+        background-color: #0089FF;
+        border-radius: 4px;
+        border : 0;
+        color: #FFF;
+        font-size: 15px;
+        cursor: pointer;
+        width: auto;
+        height : 30px;
+        margin-right:10px;
+
+        &:hover, :focus{
+            background-color: #006FCE ;
+        }
+
+        span{
+            font-size: 15px;
+            margin-left: 5px;
+        }
+    }
 
     .list{
         display: flex;
         flex-wrap: wrap;
 
-
-        .aditem{
-            width: 25%;
-            min-width:250px;
+        .adjust-button{
+            display : flex;
+            width: 33%;
+            min-width:200px;
+            flex-wrap : wrap;
+            justify-content: flex-end;
         }
+
     }
 
     @media (max-width: 600px){

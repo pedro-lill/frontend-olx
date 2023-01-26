@@ -129,7 +129,7 @@ const Page = () => {
                     {loading && <Fake height={50} />}
                     {adInfo.userInfo &&
                         <>
-                            <a href={`mailto:${adInfo.userInfo.email}`} target="_blank" className="contactSellerLink"  >Fale com o vendedor!</a>
+                            <a href={`mailto:${adInfo.userInfo.email}`} className="contactSellerLink"  >Fale com o vendedor!</a>
                             <div className="createdBy box box--padding">
                                 <strong>{adInfo.userInfo.name}</strong>
                                 <small>E-mail: {adInfo.userInfo.email}</small>

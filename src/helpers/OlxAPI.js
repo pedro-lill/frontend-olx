@@ -8,14 +8,16 @@ const BASEAPI = 'http://192.168.129.122:5000';
 
 const apiFetchFile = async (endpoint, body) => {
     if (!body.token) {                            // if there is no token in the body
-        let token = Cookies.get('token');       // if there is no token in the body, get the token from the cookies
+        const token = Cookies.get('token');       // if there is no token in the body, get the token from the cookies
         if (token) {
             body.append('token', token);        // append the token to the body            
         }
     }
     try {
 
-        const res = await fetch(BASEAPI + endpoint, {
+        const res = await fetch(
+            BASEAPI + endpoint, 
+            {
             method: 'POST',
             body
         });
@@ -91,17 +93,14 @@ const apiFetchPut = async (endpoint, body) => {
             window.location.href = '/signin';       // if the user is not allowed, redirect to the signin page 
             return;
         }
-
         return json;
     }
     catch (e) {
         console.log(e);
     }
-
 }
 
 const apiFetchGet = async (endpoint, body = []) => {
-
     if (!body.token) {
         let token = Cookies.get('token');
         if (token) {
@@ -109,7 +108,6 @@ const apiFetchGet = async (endpoint, body = []) => {
         }
     }
     try {
-
         const res = await fetch(`${BASEAPI + endpoint}?${qs.stringify(body)}`);// qs.stringify converts the body to a query string
         const json = await res.json();
 
@@ -117,7 +115,6 @@ const apiFetchGet = async (endpoint, body = []) => {
             window.location.href = '/signin';
             return;
         }
-
         return json;
     }
     catch (e) {
@@ -128,14 +125,12 @@ const apiFetchGet = async (endpoint, body = []) => {
 
 const OlxAPI = {
 
-
     login: async (email, password) => {
         const json = await apiFetchPost(
             '/user/signin',
             { email, password }
         );
         return json;
-
     },
 
     register: async (name, email, password, stateLoc) => {
@@ -145,7 +140,6 @@ const OlxAPI = {
         );
         return json;
     },
-
 
     getStates: async () => {
         const json = await apiFetchGet(
@@ -187,6 +181,11 @@ const OlxAPI = {
     
     getUserInfo: async () => {
         const json = await apiFetchGet("/user/me");
+        return json;
+    },
+
+    newAd: async (fData) => {
+        const json = await apiFetchFile("/ad/add", fData);
         return json;
     },
 

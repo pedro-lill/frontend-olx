@@ -3,10 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { PageArea, OthersArea } from './styled';
 import { PageContainer, PageTitle, ErrorMessage } from '../../components/MainComponents';
 import useApi from '../../helpers/OlxAPI';
-import { doLogin } from '../../helpers/authHandler';
 import AdItem from '../../components/partials/AdItem';
 import Modal from '../../components/partials/Modal';
-import { ModalLayout } from '../../components/partials/Modal/styled';
 
 
 const Page = () => {
@@ -14,17 +12,8 @@ const Page = () => {
     const api = useApi();
 
     const [userInfo, setUserInfo] = useState([]);
-    const [modalOpen, setModalOpen ] = useState(false);
-
-    useEffect(() => {
-        const getUserInfo = async () => {
-            const user = await api.getUserInfo();
-            setUserInfo(user);
-            setEmail(user.email);
-        };
-        getUserInfo();
-    }, []);
-
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalAd, setModalAd] = useState({});
 
     const [stateList, setStateList] = useState([]);
     const history = useHistory();
@@ -36,6 +25,26 @@ const Page = () => {
     const [disabled, setDisabled] = useState(false); // disable the button when the user clicks on it
     const [error, setError] = useState('');
 
+    // get user info
+    useEffect(() => {
+        const getUserInfo = async () => {
+            const user = await api.getUserInfo();
+            setUserInfo(user);
+            setEmail(user.email);
+        };
+        getUserInfo();
+    }, []);
+
+    // hidden scrool when modal is open
+    useEffect(() => {
+        if (modalOpen) {
+            document.querySelector('body').style.overflow = 'hidden';
+        } else {
+            document.querySelector('body').style.overflow = 'auto';
+        }
+    }, [modalOpen]);
+
+    // get states
     useEffect(() => {
         const getStates = async () => {
             const slist = await api.getStates();
@@ -44,7 +53,7 @@ const Page = () => {
         getStates();
     }, []);
 
-
+    // update user info
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisabled(true);
@@ -71,11 +80,15 @@ const Page = () => {
         setDisabled(false);
     }
 
-
+    // get ads and set modal(open)
+    const handleClick = (ad) => {
+        setModalOpen(true);
+        setModalAd(ad)
+    }
 
     return (
         <>
-            <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}/>
+            <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} data={modalAd} setData={setModalAd} />
             <PageContainer>
                 <PageTitle>Minha Conta</PageTitle>
                 <PageArea>
@@ -100,10 +113,15 @@ const Page = () => {
                         <label className='area'>
                             <div className='area--title'>Estado</div>
                             <div className='area--input'>
-                                <select value={userInfo.state} onChange={e => setUserInfo({ ...userInfo, state: e.target.value })} required >
+                                <select value={userInfo.state}
+                                    onChange={e => setUserInfo({ ...userInfo, state: e.target.value })}
+                                    required >
                                     <option></option>
                                     {stateList.map((state, k) =>
-                                        <option key={k} value={state.name}> {state.name} </option>)}
+                                        <option key={k}
+                                            value={state.name}>
+                                            {state.name}
+                                        </option>)}
                                 </select>
                             </div>
                         </label>
@@ -160,23 +178,25 @@ const Page = () => {
                                 Meus Anúncios
                             </h2>
                             <div className="list">
-                                {userInfo.ads.map((otherOferts, k) =>
-                                    <AdItem key={k} data={otherOferts._doc} />
+                                {userInfo.ads.map((otherOferts, k) => // map em ads
+                                    <div className="adjust-button">
+                                        <AdItem key={k} data={otherOferts._doc} />
+                                        <button onClick={() => handleClick(otherOferts._doc)}>
+                                            {<img src="edit.png" height="50%" width="min-content" />}
+                                            <span>
+                                                Editar Anúncio
+                                            </span>
+                                        </button>
+                                    </div>
                                 )
                                 }
                             </div>
-                            <button onClick={() => setModalOpen(true)}>
-                                Editar Anuncio
-                            </button>
                         </>
                     }
                 </OthersArea>
-
             </PageContainer>
         </>
     );
-
 }
-
 export default Page;
 

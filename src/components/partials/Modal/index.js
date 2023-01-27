@@ -22,7 +22,7 @@ const Modal = ({ modalOpen, setModalOpen, data, setData }) => {
             setCategories(cats);
         }
         getCategories();
-    }, []);
+    }, [api]);
     const modalWrapper = useRef();
 
 
@@ -31,7 +31,7 @@ const Modal = ({ modalOpen, setModalOpen, data, setData }) => {
     }
 
     function handleOutsideClick(e) {
-        if(e.target === modalWrapper.current) {
+        if (e.target === modalWrapper.current) {
             closeModal();
         }
     }
@@ -60,7 +60,7 @@ const Modal = ({ modalOpen, setModalOpen, data, setData }) => {
             fData.append('price', data.price);
             fData.append('priceneg', data.priceNegotiable);
             fData.append('desc', data.description);
-            fData.append('category', data.category);
+            fData.append('cat', data.category);
 
             if (fileField.current.files.length > 0) {
                 for (let i = 0; i < fileField.current.files.length; i++) {
@@ -127,14 +127,14 @@ const Modal = ({ modalOpen, setModalOpen, data, setData }) => {
                                 <div className='area--title'>Categoria</div>
                                 <div className='area--input'>
                                     <select
-                                        disabled={disabled}
                                         value={data.category}
+                                        disabled={disabled}
                                         onChange={e => setData({ ...data, category: e.target.value })}
                                         required
                                     >
                                         <option></option>
-                                        {categories && categories.map(cat =>
-                                            <option key={cat._id} value={cat._id}>{cat.name}</option>
+                                        {categories && categories.map((cat, k) =>
+                                            <option key={k} value={cat.slug}>{cat.name}</option>
                                         )}
                                     </select>
                                 </div>
@@ -187,7 +187,6 @@ const Modal = ({ modalOpen, setModalOpen, data, setData }) => {
                         </form>
                     </div>
                     <div className="footer">
-
                     </div>
                 </div>
             </ModalLayout>

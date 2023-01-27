@@ -29,9 +29,6 @@ const Page = () => {
         getStates();
     },[]);
     
-
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisabled(true);
@@ -53,13 +50,10 @@ const Page = () => {
         setDisabled(false);
     }
 
-
-
     return (
         <PageContainer>
             <PageTitle>Cadastro</PageTitle>
             <PageArea>
-
                 {error &&
                     <ErrorMessage>{error}</ErrorMessage>
                 }
@@ -82,12 +76,11 @@ const Page = () => {
                         <div className='area--input'>
                             <select value={stateLoc} onChange ={e => setStateLoc(e.target.value)} required >
                                 <option></option>
-                                {stateList.map((i,k)=>
-                                <option key={k} value ={i._id}> {i.name} </option>)}
+                                {stateList.map((state,k)=>
+                                <option key={k} value ={state._id}> {state.name} </option>)}
                             </select>
                         </div>
                     </label>
-                    
                     <label className='area'>
                         <div className='area--title'>E-mail</div>
                         <div className='area--input'>
@@ -133,8 +126,6 @@ const Page = () => {
                 </form>
             </PageArea>
         </PageContainer>
-     
     );
 }
-
 export default Page;

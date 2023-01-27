@@ -143,11 +143,27 @@ export const OthersArea = styled.div`
     }
 
     @media (max-width: 600px){
+        margin-left:0;
+
+        .list{
+            flex-direction: column;
+            align-items: center;
+            width: 100vw;
         
-        .list .aditem{
-            width: 50%;
-            flex-wrap: wrap;
-            min-width: 0;
+            .adjust-button{
+            width: 100%;
+            justify-content: center;
+            
+                .aditem{
+                    width: 100%;
+                    max-width:290px;
+                    flex-wrap: wrap;
+                    margin: 0;
+                    padding:0;
+                }
+            }
+
         }
     }
+
 `;

@@ -11,7 +11,7 @@ const Page = () => {
 
     const api = useApi();
 
-    const [userInfo, setUserInfo] = useState([]);
+    const [userInfo, setUserInfo] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
     const [modalAd, setModalAd] = useState({});
 
@@ -33,7 +33,7 @@ const Page = () => {
             setEmail(user.email);
         };
         getUserInfo();
-    }, []);
+    }, [api]);
 
     // hidden scrool when modal is open
     useEffect(() => {
@@ -51,7 +51,7 @@ const Page = () => {
             setStateList(slist);
         }
         getStates();
-    }, []);
+    }, [api]);
 
     // update user info
     const handleSubmit = async (e) => {
@@ -67,7 +67,7 @@ const Page = () => {
 
         const json = await api.updateUser({
             name: userInfo.name.length > 0 ? userInfo.name : undefined,
-            stateLoc: userInfo.state.length > 0 ? userInfo.state : undefined,
+            state: userInfo.state.length > 0 ? userInfo.state : undefined,
             email: userInfo.email !== email ? email : undefined,
             password: password.length > 0 ? password : undefined,
         });
@@ -113,13 +113,14 @@ const Page = () => {
                         <label className='area'>
                             <div className='area--title'>Estado</div>
                             <div className='area--input'>
-                                <select value={userInfo.state}
+                                <select 
+                                    value = {stateList.find(state => state.name === userInfo.state)?._id}
                                     onChange={e => setUserInfo({ ...userInfo, state: e.target.value })}
                                     required >
                                     <option></option>
                                     {stateList.map((state, k) =>
                                         <option key={k}
-                                            value={state.name}>
+                                            value={state._id}>
                                             {state.name}
                                         </option>)}
                                 </select>
@@ -181,8 +182,8 @@ const Page = () => {
                                 {userInfo.ads.map((otherOferts, k) => // map em ads
                                     <div className="adjust-button">
                                         <AdItem key={k} data={otherOferts._doc} />
-                                        <button onClick={() => handleClick(otherOferts._doc)}>
-                                            {<img src="edit.png" height="50%" width="min-content" />}
+                                        <button onClick={() => handleClick({...otherOferts._doc, category:otherOferts.catogory})}>
+                                            {<img src="edit.png" height="50%" width="min-content" alt="" />}
                                             <span>
                                                 Editar Anúncio
                                             </span>

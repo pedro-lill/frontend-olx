@@ -55,7 +55,6 @@ export const PageArea = styled.div`
 
                 h2{
                     margin: 0;
-                    margin-top: 20px;
                 }
                 small{
                     color: #999;

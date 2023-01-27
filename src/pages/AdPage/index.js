@@ -20,6 +20,14 @@ const Page = () => {
         title: ""
     });
 
+    // scroll up when select other ad
+    useEffect (() => {
+        window.scrollTo(0, 0);
+    }, [adInfo]);
+
+    
+
+
     const formatDate = (date) => {
         let cdate = new Date(date);
 

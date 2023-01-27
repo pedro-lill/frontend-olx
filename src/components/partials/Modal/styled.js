@@ -20,15 +20,16 @@ export const ModalLayout = styled.div`
         max-height: 800px;
         min-height: 500px;
         background-color: #f2f2f2;
-        padding : 5px;
         position: relative;
+        box-shadow: 0px 0px 3px #999; 
+        border-radius: 3px;
 
         .body{
             form {
                 background-color: #f2f2f2; // white
                 border-radius: 3px; // make the corners round
                 padding: 10px; // padding inside the form
-                box-shadow: 0px 0px 3px #999; 
+                
                 
                 button{
                     display: flex;
@@ -99,32 +100,37 @@ export const ModalLayout = styled.div`
         
         .header{
             width: 100% ;
-            margin:0;
-           .right{
-                text-align: right;
-                margin-right: 5px;
-                position: absolute ;
-                top:0;
-                right:0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 3px 3px 0 0;
 
+            .right{
+                position: absolute;
+                right: 0;
+                top: 0;
                 button{
-                all:unset;
-                cursor: pointer;
-                margin-right: 3px;
-                    &:hover {
-                        color: #999;
+                    display: none;
+                    background-color: transparent;
+                    border: 0;
+                    outline: 0;
+                    padding: 5px 10px;
+                    border-radius: 4px;
+                    color: #333;
+                    font-size: 15px;
+                    cursor: pointer;
+                    margin: 3px;
+                    margin-top: auto;
+                    &:hover{
+                        background-color: #CCC;
                     }
                 }
-           }
-           .left{
-                text-align: left;
-                margin-left: 10px;
-                position: relative ;
 
-                .h1{
-                    font-size: 10px;
-                    font-weight: bold;
-                }
+            }
+           
+            h1{
+                font-size: 30px;
+                font-weight: bold;
             }
         }
 
@@ -143,12 +149,63 @@ export const ModalLayout = styled.div`
                 color: #FFF;
                 font-size: 15px;
                 cursor: pointer;
+                margin: 3px;
+                margin-top: auto;
 
                 &:hover{
                     background-color: #006FCE;
                 }
             }
                 
+        }
+    }
+
+    @media (max-width: 600px) {
+        .modal{
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+            .header{
+                h1{
+                font-size: 20px;
+                }
+                .right{
+
+                    button{
+                        display:block;
+                    }
+                }
+            }
+            .body{
+                form{
+                    height: fit-content;
+                    overflow-y: scroll;
+                    .area{
+                        flex-direction: column;
+                        .area--title{
+                            width: 100%;
+                            text-align: left;
+                            margin-bottom: 10px;
+                        }
+                        .area--input{
+                            width: 100%;
+                            input, select, textarea{
+                                width: 100%;
+                            }
+                        }
+                    }
+                    button{
+                    width: 100%;
+                    margin-left: 0px;
+                    align-items : center;
+                }
+                }
+            }
+
+            .footer{
+                
+            }
+
         }
     }
 `;

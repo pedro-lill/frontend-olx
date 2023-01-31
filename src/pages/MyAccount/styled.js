@@ -153,6 +153,11 @@ export const OthersArea = styled.div`
             .adjust-button{
             width: 100%;
             justify-content: center;
+
+                button{
+                    width: 70%;
+                    margin: 0 10px;
+                }
             
                 .aditem{
                     width: 100%;

@@ -23,6 +23,7 @@ const Modal = ({ modalOpen, setModalOpen, data, setData }) => {
         }
         getCategories();
     }, [api]);
+    
     const modalWrapper = useRef();
 
 

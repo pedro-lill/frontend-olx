@@ -74,11 +74,8 @@ const Page = () => {
                             <AdItem key = {k} data = {i} />
                         )}
                     </div>
-
-
-                    <Link to="/ads" className = "seeAllLink" > Ver todos </Link>
-
-                    <br></br>
+                    <Link to="/a        ds" clas    sName = "seeAllLink" > Ver todos </Link>
+                    <br></br>                   
                     <hr />
                     <br></br>
                     Sobre a OLX, Termos de uso, Política de privacidade, e Proteção à Propriedade Intelectual

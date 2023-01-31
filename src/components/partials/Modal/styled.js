@@ -162,30 +162,33 @@ export const ModalLayout = styled.div`
 
     @media (max-width: 600px) {
         .modal{
-            width: 100vw;
-            height: 100vh;
+            // deixar a altura do modal responsiva
+            max-height: 100vh;
+            max-width: 100vw;
+            padding: 5 px;
             border-radius: 0;
             .header{
                 h1{
                 font-size: 20px;
+                margin: 10px auto 1px;
                 }
-                .right{
-
+                .right{               
                     button{
-                        display:block;
+                        display: block;
+                        margin-top:5px;
                     }
+
                 }
+
             }
             .body{
                 form{
-                    height: fit-content;
-                    overflow-y: scroll;
                     .area{
                         flex-direction: column;
                         .area--title{
                             width: 100%;
                             text-align: left;
-                            margin-bottom: 10px;
+                            margin-bottom: 5px;
                         }
                         .area--input{
                             width: 100%;
@@ -195,17 +198,13 @@ export const ModalLayout = styled.div`
                         }
                     }
                     button{
-                    width: 100%;
-                    margin-left: 0px;
-                    align-items : center;
-                }
+                        margin-left: 0;
+                        width: 100%;
+                    }
                 }
             }
-
-            .footer{
-                
-            }
-
+            
         }
     }
 `;
+

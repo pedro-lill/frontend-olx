@@ -9,28 +9,25 @@ import { PageContainer } from '../../components/MainComponents';
 import AdItem from '../../components/partials/AdItem';
 
 const Page = () => {
-
     const api = useApi();
-    const { id } = useParams();
-    const history = useHistory();
 
-    const [loading, setLoading] = useState(true);
+    const { id } = useParams();     // get the id from the url
+    const history = useHistory();   // history
+
+    const [loading, setLoading] = useState(true);       // loading
     const [adInfo, setAdInfo] = useState({
         category: "",
         title: ""
-    });
+    });    // ad info
 
     // scroll up when select other ad
     useEffect (() => {
         window.scrollTo(0, 0);
     }, [adInfo]);
 
-    
-
-
+    // format date
     const formatDate = (date) => {
         let cdate = new Date(date);
-
         let months = [
             'Janeiro',
             'Fevereiro',
@@ -52,6 +49,7 @@ const Page = () => {
         return `${cday} de ${months[cmonth]} de ${cyear}`;
     }
 
+    // alert to the user if the ad is not found
     useEffect(() => {
         const getAdInfo = async (id) => {
             const json = await api.getAd(id, true);
@@ -59,13 +57,11 @@ const Page = () => {
                 alert("Anúncio não encontrado!");
                 history.go(-1);
             }
-
             setAdInfo(json);
             setLoading(false);
         }
         getAdInfo(id);
     }, [id]);
-
 
     return (
         <PageContainer>
@@ -81,8 +77,6 @@ const Page = () => {
 
                 </BreadChumb>
             }
-
-
             <PageArea>
                 <div className="leftSide">
                     <div className="box">
@@ -142,12 +136,10 @@ const Page = () => {
                                 <strong>{adInfo.userInfo.name}</strong>
                                 <small>E-mail: {adInfo.userInfo.email}</small>
                                 <small>Estado: {adInfo.stateName}</small>
-
                             </div>
                         </>
                     }
                 </div>
-
             </PageArea>
             <OthersArea>
                 {adInfo.others &&
@@ -165,8 +157,6 @@ const Page = () => {
                 }
             </OthersArea>
         </PageContainer>
-
     );
 }
-
 export default Page;

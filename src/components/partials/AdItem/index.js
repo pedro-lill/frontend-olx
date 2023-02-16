@@ -11,9 +11,7 @@ export default (props) => {
     } else {
         price = `R$ ${props.data.price}`;
     }
-
     return (
-
         <Item className="aditem">
             <Link to={`/ad/${props.data._id || props.data.id}`}>  
                 <div className="itemImage">

@@ -7,13 +7,12 @@ import { PageContainer, PageTitle, ErrorMessage } from '../../components/MainCom
 import useApi from '../../helpers/OlxAPI';
 
 const Page = () => {
-
     const api = useApi();
+
     const fileField = useRef();
     const history = useHistory();
 
     const [categories, setCategories] = useState([]);   // categories is an array of objects
-
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState('');
@@ -23,6 +22,7 @@ const Page = () => {
     const [disabled, setDisabled] = useState(false); // disable the button when the user clicks on it
     const [error, setError] = useState('');
 
+    // get the list of categories
     useEffect(() => {
         const getCategories = async () => {
             const cats = await api.getCategories();
@@ -31,12 +31,12 @@ const Page = () => {
         getCategories();
     }, []);
 
+    // handle the form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisabled(true);
         setError('');
         let errors = [];
-
         if (!title.trim()) {
             errors.push('Sem título');
         }
@@ -63,23 +63,20 @@ const Page = () => {
                     fData.append('img', fileField.current.files[i]);
                 }
             }
-
             const json = await api.addAd(fData);
-
             if (!json.error) {
                 history.push(`/ad/${json.id}`);
                 return;
             } else {
                 setError(json.error);
             }
-
         } else {
             setError(errors.join("\n"));
         }
-
         setDisabled(false);
     }
 
+    // handle the price mask
     const priceMask = createNumberMask({
         prefix: 'R$ ',
         includeThousandsSeparator: true,
@@ -87,17 +84,13 @@ const Page = () => {
         allowDecimal: true,
         decimalSymbol: ','
     });
-
-
     return (
         <PageContainer>
             <PageTitle>POSTAR ANUNCIO</PageTitle>
             <PageArea>
-
                 {error &&
                     <ErrorMessage>{error}</ErrorMessage>
                 }
-
                 <form onSubmit={handleSubmit}>
                     <label className='area'>
                         <div className='area--title'>Titulo</div>
@@ -179,8 +172,6 @@ const Page = () => {
                 </form>
             </PageArea>
         </PageContainer>
-
     );
 }
-
 export default Page;

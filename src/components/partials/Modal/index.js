@@ -6,16 +6,16 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { ErrorMessage } from '../../MainComponents';
 import useApi from '../../../helpers/OlxAPI';
 
-
 const Modal = ({ modalOpen, setModalOpen, data, setData }) => {
-
     const api = useApi();
+
     const fileField = useRef();
     const history = useHistory();
     const [categories, setCategories] = useState([]);   // categories is an array of objects
     const [disabled, setDisabled] = useState(false); // disable the button when the user clicks on it
     const [error, setError] = useState('');
 
+    // get the list of categories
     useEffect(() => {
         const getCategories = async () => {
             const cats = await api.getCategories();
@@ -26,17 +26,19 @@ const Modal = ({ modalOpen, setModalOpen, data, setData }) => {
     
     const modalWrapper = useRef();
 
-
+    // function close modal
     function closeModal() {
         setModalOpen(false);
     }
 
+    // function handle outside click
     function handleOutsideClick(e) {
         if (e.target === modalWrapper.current) {
             closeModal();
         }
     }
 
+    // handle the form submission
     const handleSubmit = async (e, data) => {
         e.preventDefault();
         setDisabled(true);
@@ -68,7 +70,6 @@ const Modal = ({ modalOpen, setModalOpen, data, setData }) => {
                     fData.append('img', fileField.current.files[i]);
                 }
             }
-
             const json = await api.updateAd(fData, data._id);
 
             if (!json.error) {
@@ -77,15 +78,13 @@ const Modal = ({ modalOpen, setModalOpen, data, setData }) => {
             } else {
                 setError(json.error);
             }
-
         } else {
             setError(errors.join("\n"));
         }
-
         setDisabled(false);
     }
 
-
+    // function mask price
     const priceMask = createNumberMask({
         prefix: 'R$ ',
         includeThousandsSeparator: true,
@@ -93,7 +92,6 @@ const Modal = ({ modalOpen, setModalOpen, data, setData }) => {
         allowDecimal: true,
         decimalSymbol: ','
     });
-
 
     return (
         <>
@@ -194,8 +192,5 @@ const Modal = ({ modalOpen, setModalOpen, data, setData }) => {
 
         </>
     )
-
-
 }
-
 export default Modal;

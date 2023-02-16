@@ -15,7 +15,6 @@ const Header = () => {
     }
 
     const [userInfo, setuserInfo] = useState([]);
-
     
     const [logged, setLogged] = useState(isLogged());
 
@@ -70,10 +69,8 @@ const Header = () => {
                                 </li>
                                 <li>
                                     <button onClick = {handleLogout} >Sair</button>
-                                </li>
-                                
+                                </li> 
                             </>
-
                         }
                     </ul>
                 </nav>

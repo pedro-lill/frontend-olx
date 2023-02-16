@@ -5,7 +5,6 @@ import useApi from '../../helpers/OlxAPI';
 import { doLogin} from '../../helpers/authHandler';
 
 const Page = () => {
-
     const api = useApi();
 
     const [email, setEmail] = useState('');
@@ -13,15 +12,11 @@ const Page = () => {
     const [rememberPassword, setRememberPassword] = useState(false); 
     const [disabled, setDisabled] = useState(false); // disable the button when the user clicks on it
     const [error, setError] = useState('');
-    
-
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisabled(true);
         setError('');
-
         const json = await api.login(email, password);
 
         if(json.error){
@@ -30,21 +25,15 @@ const Page = () => {
             doLogin(json.token, rememberPassword);
             window.location.href = '/';
         }
-
         setDisabled(false);
     }
-
-
-
     return (
         <PageContainer>
             <PageTitle>Login</PageTitle>
             <PageArea>
-
                 {error &&
                     <ErrorMessage>{error}</ErrorMessage>
                 }
-
                 <form onSubmit={handleSubmit}>
                     <label className='area'>
                         <div className='area--title'>E-mail</div>
@@ -90,8 +79,6 @@ const Page = () => {
                 </form>
             </PageArea>
         </PageContainer>
-     
     );
 }
-
 export default Page;

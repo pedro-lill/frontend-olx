@@ -5,7 +5,6 @@ import useApi from '../../helpers/OlxAPI';
 import { doLogin} from '../../helpers/authHandler';
 
 const Page = () => {
-
     const api = useApi();
 
     const [name, setName] = useState('');
@@ -14,11 +13,12 @@ const Page = () => {
     const [password, setPassword]= useState('');
     const [confirmPassword, setConfirmPassword] = useState(''); 
 
-    const [stateList, setStateList] = useState([]);
+    const [stateList, setStateList] = useState([]);     // list of states
 
     const [disabled, setDisabled] = useState(false); // disable the button when the user clicks on it
     const [error, setError] = useState('');
 
+    // get the list of states
     useEffect(() => {
         const getStates = async () => {
             const slist = await api.getStates();
@@ -27,11 +27,12 @@ const Page = () => {
         getStates();
     },[]);
     
+    // handle the form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisabled(true);
         setError('');
-
+        
         if (password !== confirmPassword){
             setError('Senhas não conferem');
             setDisabled(false);
@@ -47,7 +48,6 @@ const Page = () => {
         }
         setDisabled(false);
     }
-
     return (
         <PageContainer>
             <PageTitle>Cadastro</PageTitle>

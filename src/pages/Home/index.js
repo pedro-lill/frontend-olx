@@ -9,10 +9,11 @@ const Page = () => {
 
     const api = useApi();
 
-    const [stateList, setStateList] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [adList, setAdList] = useState([]);
+    const [stateList, setStateList] = useState([]);     // list of states   
+    const [categories, setCategories] = useState([]);   // list of categories
+    const [adList, setAdList] = useState([]);           // list of ads
 
+    // get states
     useEffect(() => {
         const getStates = async () => {
             const slist = await api.getStates();
@@ -21,6 +22,7 @@ const Page = () => {
         getStates();
     },[]);
 
+    // get categories
     useEffect(() => {
         const getCategories = async () => {
             const cats = await api.getCategories();
@@ -29,6 +31,7 @@ const Page = () => {
         getCategories();
     },[]);
 
+    // get recent ads
     useEffect(() => {
         const getRecentAds = async () => {
             const json = await api.getAds({
@@ -39,8 +42,6 @@ const Page = () => {
         }
         getRecentAds();
     },[]);
-
-
     return (
         <>
             <SearchArea>
@@ -65,7 +66,6 @@ const Page = () => {
                     </div>
                 </PageContainer>
             </SearchArea>
-
             <PageContainer>
                 <PageArea>
                   <h2>Anúncios Recentes</h2>
@@ -83,8 +83,6 @@ const Page = () => {
                 </PageArea>
             </PageContainer>
         </>    
-     
     );
 }
-
 export default Page;

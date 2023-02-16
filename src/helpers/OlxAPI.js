@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import qs from 'qs';
 
-const BASEAPI = 'http://192.168.129.122:5000';
+const BASEAPI = 'http://alunos.b7web.com.br';
 
 //192.168.129.122:5000';
 //alunos.b7web.com.br';
@@ -14,7 +14,6 @@ const apiFetchFile = async (endpoint, body) => {
         }
     }
     try {
-
         const res = await fetch(
             BASEAPI + endpoint, 
             {
@@ -27,14 +26,11 @@ const apiFetchFile = async (endpoint, body) => {
             window.location.href = '/signin';       // if the user is not allowed, redirect to the signin page 
             return;
         }
-
         return json;
-
     } catch (e) {
         console.log(e);
     }
 }
-
 
 const apiFetchPost = async (endpoint, body) => {
     if (!body.token) {                            // if there is no token in the body
@@ -43,9 +39,7 @@ const apiFetchPost = async (endpoint, body) => {
             body.token = token;
         }
     }
-
     try {
-
         const res = await fetch(BASEAPI + endpoint, {
             method: 'POST',
             headers: {
@@ -60,13 +54,11 @@ const apiFetchPost = async (endpoint, body) => {
             window.location.href = '/signin';       // if the user is not allowed, redirect to the signin page 
             return;
         }
-
         return json;
     }
     catch (e) {
         console.log(e);
     }
-
 }
 
 const apiFetchPut = async (endpoint, body) => {
@@ -76,9 +68,7 @@ const apiFetchPut = async (endpoint, body) => {
             body.token = token;
         }
     }
-
     try {
-
         const res = await fetch(BASEAPI + endpoint, {
             method: 'PUT',
             headers: {
@@ -124,7 +114,6 @@ const apiFetchGet = async (endpoint, body = []) => {
 }
 
 const OlxAPI = {
-
     login: async (email, password) => {
         const json = await apiFetchPost(
             '/user/signin',

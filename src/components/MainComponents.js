@@ -24,5 +24,3 @@ export const ErrorMessage = styled.div`
     padding: 10px;
 
 `;
-
-

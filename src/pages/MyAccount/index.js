@@ -6,21 +6,18 @@ import useApi from '../../helpers/OlxAPI';
 import AdItem from '../../components/partials/AdItem';
 import Modal from '../../components/partials/Modal';
 
-
 const Page = () => {
-
     const api = useApi();
 
-    const [userInfo, setUserInfo] = useState({});
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalAd, setModalAd] = useState({});
+    const [userInfo, setUserInfo] = useState({});       // user info
+    const [modalOpen, setModalOpen] = useState(false);  // modal open
+    const [modalAd, setModalAd] = useState({});         // get info from ad
+    const [stateList, setStateList] = useState([]);     // list of states
+    const history = useHistory();                       // history
 
-    const [stateList, setStateList] = useState([]);
-    const history = useHistory();
-
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [email, setEmail] = useState('');
 
     const [disabled, setDisabled] = useState(false); // disable the button when the user clicks on it
     const [error, setError] = useState('');
@@ -44,8 +41,6 @@ const Page = () => {
         }
     }, [modalOpen]);
 
-    // 
-
     // get states
     useEffect(() => {
         const getStates = async () => {
@@ -66,7 +61,6 @@ const Page = () => {
             setDisabled(false);
             return;
         }
-
         const json = await api.updateUser({
             name: userInfo.name.length > 0 ? userInfo.name : undefined,
             state: userInfo.state.length > 0 ? userInfo.state : undefined,
@@ -94,11 +88,9 @@ const Page = () => {
             <PageContainer>
                 <PageTitle>Minha Conta</PageTitle>
                 <PageArea>
-
                     {error &&
                         <ErrorMessage>{error}</ErrorMessage>
                     }
-
                     <form onSubmit={handleSubmit}>
                         <label className='area'>
                             <div className='area--title'>Nome Completo</div>
@@ -128,7 +120,6 @@ const Page = () => {
                                 </select>
                             </div>
                         </label>
-
                         <label className='area'>
                             <div className='area--title'>E-mail</div>
                             <div className='area--input'>
@@ -172,7 +163,6 @@ const Page = () => {
                             </div>
                         </label>
                     </form>
-
                 </PageArea>
                 <OthersArea>
                     {userInfo.ads &&

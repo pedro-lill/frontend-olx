@@ -7,7 +7,6 @@ import { doLogin} from '../../helpers/authHandler';
 
 
 const Page = () => {
-
     const api = useApi();
 
     const [name, setName] = useState('');
@@ -15,11 +14,9 @@ const Page = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword]= useState('');
     const [confirmPassword, setConfirmPassword] = useState(''); 
-
-    const [stateList, setStateList] = useState([]);
-
+    const [stateList, setStateList] = useState([]); // list of states
     const [disabled, setDisabled] = useState(false); // disable the button when the user clicks on it
-    const [error, setError] = useState('');
+    const [error, setError] = useState('');     // error message
 
     useEffect(() => {
         const getStates = async () => {
@@ -29,9 +26,6 @@ const Page = () => {
         getStates();
     },[]);
     
-
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisabled(true);
@@ -52,18 +46,13 @@ const Page = () => {
         }
         setDisabled(false);
     }
-
-
-
     return (
         <PageContainer>
             <PageTitle>Alterar Cadastro</PageTitle>
             <PageArea>
-
                 {error &&
                     <ErrorMessage>{error}</ErrorMessage>
                 }
-
                 <form onSubmit={handleSubmit}>
                     <label className='area'>
                         <div className='area--title'>Nome Completo</div>
@@ -133,8 +122,6 @@ const Page = () => {
                 </form>
             </PageArea>
         </PageContainer>
-     
     );
 }
-
 export default Page;

@@ -4,10 +4,7 @@ import { PageContainer, PageTitle, ErrorMessage } from '../../components/MainCom
 import useApi from '../../helpers/OlxAPI';
 import { doLogin} from '../../helpers/authHandler';
 
-
-
 const Page = () => {
-
     const api = useApi();
 
     const [name, setName] = useState('');
@@ -15,9 +12,7 @@ const Page = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword]= useState('');
     const [confirmPassword, setConfirmPassword] = useState(''); 
-
-    const [stateList, setStateList] = useState([]);
-
+    const [stateList, setStateList] = useState([]);     // list of states
     const [disabled, setDisabled] = useState(false); // disable the button when the user clicks on it
     const [error, setError] = useState('');
 
@@ -49,7 +44,6 @@ const Page = () => {
         }
         setDisabled(false);
     }
-
     return (
         <PageContainer>
             <PageTitle>Cadastro</PageTitle>
@@ -57,7 +51,6 @@ const Page = () => {
                 {error &&
                     <ErrorMessage>{error}</ErrorMessage>
                 }
-
                 <form onSubmit={handleSubmit}>
                     <label className='area'>
                         <div className='area--title'>Nome Completo</div>

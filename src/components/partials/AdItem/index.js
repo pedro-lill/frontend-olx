@@ -18,7 +18,7 @@ export default (props) => {
                     {props.data.images ?
                         <img src={"http://192.168.129.122:5000/media/" + props.data.images[0].url} alt="" ></img>
                         :
-                        <img src={props.data.image.endsWith("default.jpg") ? "/default.jpg" : props.data.image} alt="" ></img>
+                        <img src={props.data.image?.endsWith("default.jpg") ? "/default.jpg" : props.data.image} alt="" ></img>
                     }
                 </div>
                 <div className="itemName">{props.data.title}</div>

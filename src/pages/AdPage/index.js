@@ -15,10 +15,7 @@ const Page = () => {
     const history = useHistory();   // history
 
     const [loading, setLoading] = useState(true);       // loading
-    const [adInfo, setAdInfo] = useState({
-        category: "",
-        title: ""
-    });    // ad info
+    const [adInfo, setAdInfo] = useState({});    // ad info
 
     // scroll up when select other ad
     useEffect (() => {
@@ -62,7 +59,8 @@ const Page = () => {
         }
         getAdInfo(id);
     }, [id]);
-
+    console.log(adInfo);
+    console.log(adInfo.others);
     return (
         <PageContainer>
             {adInfo.category &&
@@ -70,7 +68,7 @@ const Page = () => {
                     Você está aqui:
                     <Link to="/">Home</Link>
                     /
-                    <Link to={`/ads?state=${adInfo.stateName}`}>{adInfo.stateName}</Link>
+                    <Link to={`/ads?state=${adInfo.stateName}`}>{adInfo.state.name}</Link>
                     /
                     <Link to={`/ads?state=${adInfo.stateName}&cat=${adInfo.category.slug}`}>{adInfo.category.name}</Link>
                     / {adInfo.title}
@@ -107,7 +105,7 @@ const Page = () => {
                             </div>
                             <div className="adDescription">
                                 {loading && <Fake height={100} />}
-                                {adInfo.description}
+                                {adInfo.desc}
                                 <hr />
                                 {adInfo.views &&
                                     <small>Visualizações: {adInfo.views}</small>
@@ -119,7 +117,7 @@ const Page = () => {
                 <div className="rightSide">
                     <div className="box box--padding">
                         {loading && <Fake height={20} />}
-                        {adInfo.priceNegotiable &&
+                        {adInfo.priceNeg &&
                             "Preço Negociável"
                         }
                         {!adInfo.priceNegotiable && adInfo.price &&

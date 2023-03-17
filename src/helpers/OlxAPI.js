@@ -1,8 +1,12 @@
 import Cookies from 'js-cookie';
 import qs from 'qs';
 
-const BASEAPI = 'http://alunos.b7web.com.br';
+//concatenar a bas com o path da category.slug
+const BASEAPI = 'http://localhost:5150';
 
+
+//192.168.15.156:5150';
+//192.168.15.3:5000';
 //192.168.129.122:5000';
 //alunos.b7web.com.br';
 
@@ -98,7 +102,8 @@ const apiFetchGet = async (endpoint, body = []) => {
         }
     }
     try {
-        const res = await fetch(`${BASEAPI + endpoint}?${qs.stringify(body)}`);// qs.stringify converts the body to a query string
+        // request to the API sending headers and body        
+        const res = await fetch(`${BASEAPI + endpoint}?${qs.stringify(body)}`)
         const json = await res.json();
 
         if (json.notallowed) {
@@ -125,7 +130,7 @@ const OlxAPI = {
     register: async (name, email, password, stateLoc) => {
         const json = await apiFetchPost(
             '/user/signup',
-            { name, email, password, state: stateLoc }
+            { name, email, password, state_id: stateLoc }
         );
         return json;
     },
@@ -134,7 +139,7 @@ const OlxAPI = {
         const json = await apiFetchGet(
             '/states'
         );
-        return json.states;
+        return json;
     },
 
     getCategories: async () => {
@@ -170,11 +175,6 @@ const OlxAPI = {
     
     getUserInfo: async () => {
         const json = await apiFetchGet("/user/me");
-        return json;
-    },
-
-    newAd: async (fData) => {
-        const json = await apiFetchFile("/ad/add", fData);
         return json;
     },
 

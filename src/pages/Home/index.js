@@ -38,7 +38,8 @@ const Page = () => {
                 sort : 'desc',
                 limit : 20
         });
-        setAdList(json.ads);
+        setAdList(json);
+        //setAdList(json.ads);
         }
         getRecentAds();
     },[]);
@@ -50,14 +51,14 @@ const Page = () => {
                         <form method="GET" action="/ads">
                             <input type="text" name="q" placeholder="O que você procura?" />
                             <select name="state">
-                                {stateList.map((i,k) =>
+                                {stateList?.map((i,k) =>
                                     <option key = {k} value = {i.name} >{i.name}</option>)}
                             </select>
                             <button>Pesquisar</button>  
                         </form>
                     </div>
                     <div className="categoryList" >
-                        {categories.map((categories,k) =>
+                        {categories?.map((categories,k) =>
                             <Link key = {k} to={`/ads?cat=${categories.slug}`} className="categoryItem">
                                 <img src={categories.img} alt="" />
                                 <span>{categories.name}</span>
@@ -70,11 +71,11 @@ const Page = () => {
                 <PageArea>
                   <h2>Anúncios Recentes</h2>
                     <div className="list">
-                        {adList.map((i,k)=> 
-                            <AdItem key = {k} data = {i} />
+                        {adList.map((allads,k)=> 
+                            <AdItem key = {k} data = {allads} />
                         )}
                     </div>
-                    <Link to="/a        ds" clas    sName = "seeAllLink" > Ver todos </Link>
+                    <Link to="/ads" className = "seeAllLink" > Ver todos </Link>
                     <br></br>                   
                     <hr />
                     <br></br>

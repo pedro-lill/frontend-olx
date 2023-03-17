@@ -63,7 +63,7 @@ const Page = () => {
         }
         const json = await api.updateUser({
             name: userInfo.name.length > 0 ? userInfo.name : undefined,
-            state: userInfo.state.length > 0 ? userInfo.state : undefined,
+            state_id: userInfo.state_id.length > 0 ? userInfo.state_id : undefined,
             email: userInfo.email !== email ? email : undefined,
             password: password.length > 0 ? password : undefined,
         });
@@ -107,15 +107,15 @@ const Page = () => {
                         <label className='area'>
                             <div className='area--title'>Estado</div>
                             <div className='area--input'>
-                                <select 
-                                    value = {stateList.find(state => state.name === userInfo.state)?._id}
-                                    onChange={e => setUserInfo({ ...userInfo, state: e.target.value })}
+                                <select
+                                    value={userInfo.state_id}
+                                    onChange={e => setUserInfo({ ...userInfo, state_id: e.target.value })}
                                     required >
                                     <option></option>
-                                    {stateList.map((state, k) =>
+                                    {stateList.map((state_id, k) =>
                                         <option key={k}
-                                            value={state._id}>
-                                            {state.name}
+                                            value={state_id._id}>
+                                            {state_id.name}
                                         </option>)}
                                 </select>
                             </div>
